@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDFToolz - Free Online PDF Converter | Edit, Compress & Merge PDF | No Login Required</title>
+    <meta name="description"
+        content="Transform PDFs in seconds with PDFToolz - the most trusted free online PDF converter. Edit PDF online, compress PDF, merge PDF with no login required. 100% secure processing in your browser.">
+    <meta name="keywords"
+        content="free online PDF converter, secure PDF tools, no login required, edit PDF online, compress PDF, merge PDF, PDF to Word, PDF to Excel, PDF to JPG">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    screens: {
+                        '3xl': '1800px',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body
+    class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans selection:bg-brand-100 selection:text-brand-900 antialiased transition-colors duration-300">
+
+    <nav
+        class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0 flex items-center gap-2 group">
+                        <div
+                            class="bg-brand-600 text-white p-1.5 rounded-lg group-hover:bg-brand-700 transition-colors">
+                            <i class="ph-bold ph-files text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-slate-800 dark:text-white">PDF<span
+                                class="text-brand-600 dark:text-brand-500">Toolz</span></span>
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" onclick="toggleTheme()"
+                        class="p-2 rounded-full text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">
+                        <i id="theme-icon" class="ph-bold ph-moon text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div
+        class="bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-900 pt-20 pb-20 text-center px-4 relative overflow-hidden transition-colors duration-300">
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-brand-100/30 dark:bg-brand-900/20 rounded-full blur-3xl -z-10">
+        </div>
+
+        <div class="max-w-4xl mx-auto space-y-6 relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight leading-[1.1]">
+                The Ultimate <span class="text-brand-600 dark:text-brand-500">Free Online PDF Converter</span><br>
+                <span class="text-3xl md:text-5xl">Transform Any PDF in Seconds</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                The most trusted <strong>free online PDF converter</strong> with <strong>secure PDF tools</strong>.
+                Convert PDF to Word, Excel, JPG, compress, merge, and more—all with <strong>no login required</strong>.
+                Runs 100% in your browser.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-6 text-sm">
+                <div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                    <i class="ph-fill ph-lightning text-xl text-yellow-500"></i>
+                    <span><strong>Blazing Fast</strong></span>
+                </div>
+                <div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                    <i class="ph-fill ph-gift text-xl text-brand-600"></i>
+                    <span><strong>100% Free</strong></span>
+                </div>
+                <div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                    <i class="ph-fill ph-shield-check text-xl text-green-600"></i>
+                    <span><strong>Private & Secure</strong></span>
+                </div>
+                <div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                    <i class="ph-fill ph-user-circle-slash text-xl text-purple-600"></i>
+                    <span><strong>No Login</strong></span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 -mt-8 relative z-20">
+        <!-- Tools Grid: 7 essential PDF tools -->
+        <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+            <!-- 1. PDF to WORD -->
+            <a href="PDFToWord.html"
+                class="group bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div
+                    class="w-16 h-16 rounded-xl mb-6 bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
+                    <i class="ph-fill ph-microsoft-word-logo text-3xl"></i>
+                </div>
+                <h3
+                    class="text-xl font-bold text-slate-800 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    PDF to WORD</h3>
+                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">Convert PDFs to editable Word
+                    documents with
+                    perfect formatting.</p>
+            </a>
+
+            <!-- 2. PDF to EXCEL -->
+            <a href="PDFtoExcel.html"
+                class="group bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div
+                    class="w-16 h-16 rounded-xl mb-6 bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform">
+                    <i class="ph-fill ph-microsoft-excel-logo text-3xl"></i>
+                </div>
+                <h3
+                    class="text-xl font-bold text-slate-800 dark:text-white mb-4 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                    PDF to EXCEL</h3>
+                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">Extract tables and data from
+                    PDFs into Excel
+                    spreadsheets.</p>
+            </a>
+
+            <!-- 3. PDF to PPT -->
+            <a href="PDFtoPPT.html"
+                class="group bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div
+                    class="w-16 h-16 rounded-xl mb-6 bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform">
+                    <i class="ph-fill ph-microsoft-powerpoint-logo text-3xl"></i>
+                </div>
+                <h3
+                    class="text-xl font-bold text-slate-800 dark:text-white mb-4 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                    PDF to PPT</h3>
+                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">Transform PDFs into PowerPoint
+                    presentations
+                    instantly.</p>
+            </a>
+
+            <!-- 4. COMPRESS PDF -->
+            <a href="CompressPDF.html"
+                class="group bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div
+                    class="w-16 h-16 rounded-xl mb-6 bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400 group-hover:scale-110 transition-transform">
+                    <i class="ph-fill ph-arrows-in-line-horizontal text-3xl"></i>
+                </div>
+                <h3
+                    class="text-xl font-bold text-slate-800 dark:text-white mb-4 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                    COMPRESS PDF</h3>
+                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">Reduce PDF file size while
+                    maintaining quality.
+                </p>
+            </a>
+
+            <!-- 5. SPLIT PDF -->
+            <a href="SplitPDF.html"
+                class="group bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div
+                    class="w-16 h-16 rounded-xl mb-6 bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform">
+                    <i class="ph-fill ph-scissors text-3xl"></i>
+                </div>
+                <h3
+                    class="text-xl font-bold text-slate-800 dark:text-white mb-4 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                    SPLIT PDF</h3>
+                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">Extract pages or split PDFs into
+                    multiple
+                    documents.</p>
+            </a>
+
+            <!-- 6. ORGANIZE PDF -->
+            <a href="OrganizePDF.html"
+                class="group bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div
+                    class="w-16 h-16 rounded-xl mb-6 bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
+                    <i class="ph-fill ph-squares-four text-3xl"></i>
+                </div>
+                <h3
+                    class="text-xl font-bold text-slate-800 dark:text-white mb-4 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    ORGANIZE PDF</h3>
+                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">Rearrange, rotate, or remove
+                    pages from your PDF.
+                </p>
+            </a>
+
+            <!-- 7. MERGE PDF -->
+            <a href="MergePDF.html"
+                class="group bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div
+                    class="w-16 h-16 rounded-xl mb-6 bg-brand-50 dark:bg-brand-900/20 flex items-center justify-center text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform">
+                    <i class="ph-fill ph-files text-3xl"></i>
+                </div>
+                <h3
+                    class="text-xl font-bold text-slate-800 dark:text-white mb-4 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    MERGE PDF</h3>
+                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">Combine multiple PDFs into a
+                    single document.</p>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Why Choose PDFToolz Section -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">Why Choose PDFToolz?</h2>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">The most powerful and secure PDF
+                converter and editor, trusted by millions worldwide</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Benefit 1: Blazing Fast -->
+            <div
+                class="bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="w-14 h-14 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center mb-6">
+                    <i class="ph-fill ph-lightning text-3xl text-yellow-600 dark:text-yellow-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Lightning-Fast Conversions</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Experience <strong>blazing-fast PDF
+                        processing</strong> that completes in seconds, not minutes. Our advanced algorithms ensure you
+                    convert PDF to Word, Excel, JPG, and other formats at maximum speed without compromising quality.
+                </p>
+            </div>
+
+            <!-- Benefit 2: 100% Free -->
+            <div
+                class="bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="w-14 h-14 rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center mb-6">
+                    <i class="ph-fill ph-gift text-3xl text-brand-600 dark:text-brand-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Completely Free Forever</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Enjoy unlimited access to all premium
+                    features at <strong>absolutely no cost</strong>. No hidden fees, no premium plans, no subscription
+                    traps. Convert, compress, merge, and edit PDFs as much as you want, whenever you want.</p>
+            </div>
+
+            <!-- Benefit 3: Privacy First -->
+            <div
+                class="bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="w-14 h-14 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6">
+                    <i class="ph-fill ph-shield-check text-3xl text-green-600 dark:text-green-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Bank-Level Security & Privacy</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed"><strong>Your files never leave your
+                        device.</strong> All conversions happen locally in your browser with zero server uploads. No
+                    account needed, no tracking, no data collection. Your documents remain 100% private and secure.</p>
+            </div>
+
+            <!-- Benefit 4: No Login Required -->
+            <div
+                class="bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="w-14 h-14 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-6">
+                    <i class="ph-fill ph-user-circle-slash text-3xl text-purple-600 dark:text-purple-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">No Login Required</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Start using PDFToolz instantly with
+                    <strong>no account creation, no sign-up forms, and no email verification</strong>. Just open, upload
+                    your PDF, and convert. It's that simple and hassle-free.
+                </p>
+            </div>
+
+            <!-- Benefit 5: Works Everywhere -->
+            <div
+                class="bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="w-14 h-14 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center mb-6">
+                    <i class="ph-fill ph-devices text-3xl text-teal-600 dark:text-teal-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Works on Any Device</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Access PDFToolz from <strong>Windows, Mac,
+                        Linux, iOS, Android, or any device with a web browser</strong>. Whether you're on desktop,
+                    tablet, or mobile, enjoy the same powerful features everywhere.</p>
+            </div>
+
+            <!-- Benefit 6: Professional Quality -->
+            <div
+                class="bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="w-14 h-14 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mb-6">
+                    <i class="ph-fill ph-seal-check text-3xl text-indigo-600 dark:text-indigo-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Professional-Grade Results</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Get enterprise-quality conversions with
+                    <strong>perfect formatting preservation</strong>. Our advanced conversion engine maintains layouts,
+                    fonts, images, and tables exactly as they appear in the original document.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="bg-slate-50 dark:bg-slate-800/50 py-24 px-4 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">How It Works</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">Transform your PDFs in just
+                    three simple steps—no technical skills required</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-2xl p-8 text-center border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                        <div
+                            class="w-16 h-16 rounded-full bg-brand-600 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                            1
+                        </div>
+                        <i class="ph-fill ph-upload text-5xl text-brand-600 dark:text-brand-400 mb-4 block"></i>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Select Your PDF</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Click to upload or drag and drop your PDF file.
+                            Works with any PDF document, no size limits.</p>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                        <i class="ph-bold ph-arrow-right text-3xl text-brand-600 dark:text-brand-400"></i>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-2xl p-8 text-center border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                        <div
+                            class="w-16 h-16 rounded-full bg-brand-600 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                            2
+                        </div>
+                        <i class="ph-fill ph-gear text-5xl text-brand-600 dark:text-brand-400 mb-4 block"></i>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Choose Your Tool</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Select from 10+ tools: convert to Word, Excel,
+                            JPG, compress, merge, split, or organize pages.</p>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                        <i class="ph-bold ph-arrow-right text-3xl text-brand-600 dark:text-brand-400"></i>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div>
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-2xl p-8 text-center border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                        <div
+                            class="w-16 h-16 rounded-full bg-brand-600 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                            3
+                        </div>
+                        <i class="ph-fill ph-download text-5xl text-brand-600 dark:text-brand-400 mb-4 block"></i>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Download Instantly</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Your converted file is ready in seconds. Download
+                            and use it immediately—no waiting!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">Complete PDF Solution</h2>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">Everything you need to work with
+                PDFs, all in one secure platform</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Feature 1 -->
+            <div
+                class="flex gap-4 bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-100 dark:border-slate-700 hover:shadow-lg transition-all duration-300">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-file-arrow-down text-2xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Convert PDF to Multiple Formats
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">Transform PDFs to <strong>Word
+                            (DOCX)</strong>, <strong>Excel (XLSX)</strong>, <strong>PowerPoint (PPT)</strong>,
+                        <strong>JPG</strong>, <strong>PNG</strong>, and more with perfect quality retention.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div
+                class="flex gap-4 bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-100 dark:border-slate-700 hover:shadow-lg transition-all duration-300">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 rounded-lg bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-arrows-in-simple text-2xl text-teal-600 dark:text-teal-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Smart PDF Compression</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm"><strong>Reduce PDF file size by up to
+                            90%</strong> while maintaining visual quality. Perfect for email attachments and web
+                        uploads.</p>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div
+                class="flex gap-4 bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-100 dark:border-slate-700 hover:shadow-lg transition-all duration-300">
+                <div class="flex-shrink-0">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-files text-2xl text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Merge & Split PDFs</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm"><strong>Combine multiple PDFs</strong> into
+                        one document or <strong>split large PDFs</strong> into separate files with precision control.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div
+                class="flex gap-4 bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-100 dark:border-slate-700 hover:shadow-lg transition-all duration-300">
+                <div class="flex-shrink-0">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-arrows-clockwise text-2xl text-indigo-600 dark:text-indigo-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Organize PDF Pages</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm"><strong>Reorder, rotate, or delete
+                            pages</strong> from your PDFs with an intuitive drag-and-drop interface. Full control over
+                        your documents.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="bg-slate-50 dark:bg-slate-800/50 py-24 px-4 transition-colors duration-300">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">Frequently Asked
+                    Questions</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400">Everything you need to know about our free PDF
+                    tools</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-start gap-3">
+                        <i class="ph-fill ph-question text-brand-600 dark:text-brand-400 text-xl"></i>
+                        <span>Is PDFToolz really 100% free?</span>
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 ml-8">Yes! PDFToolz is completely free with no hidden
+                        charges, premium plans, or feature limitations. You can convert, compress, merge, split, and
+                        organize unlimited PDFs without paying a cent.</p>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-start gap-3">
+                        <i class="ph-fill ph-question text-brand-600 dark:text-brand-400 text-xl"></i>
+                        <span>Are my files safe and private?</span>
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 ml-8">Absolutely. All PDF processing happens
+                        <strong>locally in your browser</strong>—your files never get uploaded to our servers. This
+                        means complete privacy and security. We don't store, track, or access your documents in any way.
+                    </p>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-start gap-3">
+                        <i class="ph-fill ph-question text-brand-600 dark:text-brand-400 text-xl"></i>
+                        <span>Do I need to create an account or sign up?</span>
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 ml-8">No registration required! You can start using
+                        PDFToolz immediately without creating an account, providing an email, or entering any personal
+                        information. Just visit the site and go.</p>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-start gap-3">
+                        <i class="ph-fill ph-question text-brand-600 dark:text-brand-400 text-xl"></i>
+                        <span>What devices and browsers are supported?</span>
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 ml-8">PDFToolz works on <strong>all modern devices and
+                            browsers</strong> including Chrome, Firefox, Safari, Edge, and Opera. Whether you're using
+                        Windows, Mac, Linux, iOS, or Android—desktop, tablet, or mobile—you'll get the same great
+                        experience.</p>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-start gap-3">
+                        <i class="ph-fill ph-question text-brand-600 dark:text-brand-400 text-xl"></i>
+                        <span>Is there a file size limit?</span>
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 ml-8">Since all processing happens in your browser,
+                        file size limits depend on your device's capabilities. Most modern devices can easily handle
+                        PDFs up to several hundred megabytes.</p>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-start gap-3">
+                        <i class="ph-fill ph-question text-brand-600 dark:text-brand-400 text-xl"></i>
+                        <span>How fast are the conversions?</span>
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 ml-8">PDFToolz delivers <strong>blazing-fast
+                            conversions</strong> that typically complete in just a few seconds. Since everything runs
+                        locally without server round-trips, you'll experience instant processing for most files.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 px-4 text-sm border-t dark:border-slate-800">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <div class="bg-slate-800 text-white p-1 rounded">
+                    <i class="ph-bold ph-files text-lg"></i>
+                </div>
+                <span class="text-lg font-bold text-white">PDFToolz</span>
+            </div>
+            <div class="flex items-center gap-4 text-slate-500">
+                <span>100% Free • No Login Required • Complete Privacy</span>
+            </div>
+            <p class="text-slate-600">© 2025 PDFToolz</p>
+        </div>
+    </footer>
+
+    <script src="/static/script.js"></script>
+
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            updateIcon(true);
+        } else {
+            document.documentElement.classList.remove('dark');
+            updateIcon(false);
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                updateIcon(false);
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                updateIcon(true);
+            }
+        }
+
+        function updateIcon(isDark) {
+            const icon = document.getElementById('theme-icon');
+            if (icon) {
+                if (isDark) {
+                    icon.classList.replace('ph-moon', 'ph-sun');
+                } else {
+                    icon.classList.replace('ph-sun', 'ph-moon');
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

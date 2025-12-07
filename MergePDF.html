@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge PDF Online Free | Free PDF Combiner - PDFToolz</title>
+    <meta name="description"
+        content="Easily combine multiple PDF files into one well-organized document in seconds. Free, fast, browser-based PDF merger with no account required. Strong privacy—files never leave your device.">
+    <meta name="keywords"
+        content="merge PDF online, free PDF combiner, secure PDF merging, combine multiple PDFs instantly, PDF joiner">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' },
+                        merge: { 50: '#fef3c7', 100: '#fde68a', 500: '#f59e0b', 600: '#d97706' }
+                    },
+                    animation: { 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .drag-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f59e0b' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .drop-zone {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .drop-zone.drag-active {
+            border-color: #f59e0b;
+            background-color: #fef3c7;
+            transform: scale(1.02);
+        }
+
+        .dark .drop-zone.drag-active {
+            background-color: #1e293b;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
+    <!-- Navigation -->
+    <nav
+        class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-10">
+                    <a href="index.html" class="flex-shrink-0 flex items-center gap-2 group">
+                        <div
+                            class="bg-brand-600 text-white p-1.5 rounded-lg group-hover:bg-brand-700 transition-colors">
+                            <i class="ph-bold ph-files text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-slate-800 dark:text-white">PDF<span
+                                class="text-brand-600 dark:text-brand-500">Toolz</span></span>
+                    </a>
+                    <div class="hidden md:flex space-x-4 items-center">
+                        <span class="text-sm font-medium text-slate-400">/</span>
+                        <span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Merge PDF</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" onclick="toggleTheme()"
+                        class="p-2 rounded-full text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"><i
+                            id="theme-icon" class="ph-bold ph-moon text-xl"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Upload -->
+    <section
+        class="py-16 px-4 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-900 relative overflow-hidden">
+
+        <div class="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+            <!-- SEO Heading -->
+            <div class="space-y-4">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">Merge PDF
+                    Online
+                    Free</h1>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">Easily
+                    <strong>combine multiple PDF files into one well-organized document</strong> in seconds. Free, fast,
+                    browser-based with no account required.
+                </p>
+            </div>
+
+            <!-- Upload Section -->
+            <div id="drop-zone"
+                class="drop-zone bg-white dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-3xl p-12 md:p-16 shadow-xl cursor-pointer relative overflow-hidden group">
+                <input type="file" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
+                    accept=".pdf" multiple />
+
+                <div id="idle-content" class="relative z-10 flex flex-col items-center gap-6">
+                    <div
+                        class="w-24 h-24 bg-amber-50 dark:bg-slate-700 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-files text-5xl text-merge-500"></i>
+                    </div>
+                    <button
+                        class="bg-brand-600 hover:bg-brand-700 text-white text-xl font-bold py-4 px-12 rounded-xl shadow-lg transition-all transform hover:-translate-y-1">Select
+                        PDF files</button>
+                    <p class="text-slate-400 dark:text-slate-500 text-sm font-medium">or drop multiple PDFs here</p>
+                </div>
+
+                <div id="success-content" class="hidden relative z-30 flex-col items-center gap-4 pointer-events-auto">
+                    <div
+                        class="w-20 h-20 bg-amber-50 dark:bg-amber-900/30 rounded-full flex items-center justify-center mb-2">
+                        <i class="ph-bold ph-files text-4xl text-merge-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-white">Files Ready to Merge</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm font-medium bg-slate-100 dark:bg-slate-700 px-4 py-2 rounded-lg"
+                        id="file-count"></p>
+
+                    <button id="merge-btn"
+                        class="mt-6 bg-brand-600 hover:bg-brand-700 text-white text-lg font-bold py-3 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center gap-2 cursor-pointer relative z-50">
+                        <span>Merge PDFs Now</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </button>
+
+                    <button id="processing-btn"
+                        class="hidden mt-6 bg-slate-400 cursor-not-allowed text-white text-lg font-bold py-3 px-8 rounded-xl flex items-center gap-3">
+                        <i class="ph-bold ph-spinner spinner text-xl"></i>
+                        <span>Merging...</span>
+                    </button>
+
+                    <a id="download-btn" href="#"
+                        class="hidden mt-6 bg-green-600 hover:bg-green-700 text-white text-lg font-bold py-3 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center gap-2 relative z-50">
+                        <i class="ph-bold ph-download-simple text-xl"></i>
+                        <span>Download Merged PDF</span>
+                    </a>
+
+                    <button onclick="location.reload()"
+                        class="mt-2 text-brand-600 dark:text-brand-400 font-medium hover:text-brand-800 dark:hover:text-brand-300 underline text-sm cursor-pointer relative z-50">Change
+                        files</button>
+                </div>
+                <div
+                    class="absolute inset-0 drag-pattern opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                </div>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="mt-10 flex flex-wrap justify-center gap-8 md:gap-12">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-files text-2xl text-merge-500"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-sm font-semibold text-slate-900 dark:text-white">Seamless Merging</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Multiple Files at Once</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-shield-check text-2xl text-blue-600"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-sm font-semibold text-slate-900 dark:text-white">Secure Merging</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Files Never Uploaded</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-lightning text-2xl text-yellow-600"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-sm font-semibold text-slate-900 dark:text-white">Instant Processing</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Merge in Seconds</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose PDFToolz Section -->
+    <section class="py-20 px-4 bg-white dark:bg-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <span
+                    class="inline-block px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-sm font-semibold mb-4">Why
+                    Choose PDFToolz</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
+                    The Best Free PDF Combiner Online
+                </h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                    <strong>Combine multiple PDFs instantly</strong> into one well-organized, professional document
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-files text-3xl text-merge-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Seamless PDF Merging</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Our <strong>merge PDF online</strong> tool combines multiple files effortlessly. Upload any
+                        number of PDFs and get one unified document with perfect page order.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-lightning text-3xl text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Lightning-Fast Processing</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Get your <strong>combined PDF instantly</strong>. Our optimized engine merges files in
+                        seconds—upload, merge, and download your unified document immediately.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-shield-check text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Complete Privacy & Security</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Your files never leave your device. All <strong>secure PDF merging</strong> happens locally in
+                        your browser with zero uploads. Enjoy complete confidentiality.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-user-circle-slash text-3xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">No Login, 100% Free</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Access our professional <strong>free PDF combiner</strong> instantly with <strong>no
+                            registration required</strong>. Merge unlimited PDFs at absolutely no cost—forever.
+                    </p>
+                </div>
+
+                <!-- Card 5 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-devices text-3xl text-teal-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Works Everywhere</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Perfect on <strong>Windows, Mac, Linux, iOS, and Android</strong>. Our browser-based tool works
+                        seamlessly across all platforms.
+                    </p>
+                </div>
+
+                <!-- Card 6 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-sort-ascending text-3xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Maintain Page Order</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Your merged PDF maintains perfect page order and formatting. All content, images, and layouts
+                        stay exactly as they should.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-20 px-4 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">How Our PDF Merger Works
+                </h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    Combine PDF files in three simple steps—perfect for reports, invoices, and documentation
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-amber-200 dark:border-amber-800 text-center hover:shadow-xl transition-shadow">
+                        <div
+                            class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-merge-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                            1
+                        </div>
+                        <i
+                            class="ph-fill ph-upload-simple text-5xl text-merge-600 dark:text-merge-500 mb-4 block mt-4"></i>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Select Multiple PDFs</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Click to select or drag and drop multiple PDF files you want to combine.
+                        </p>
+                    </div>
+                    <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                        <i class="ph-bold ph-arrow-right text-3xl text-merge-500"></i>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-amber-200 dark:border-amber-800 text-center hover:shadow-xl transition-shadow">
+                        <div
+                            class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-merge-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                            2
+                        </div>
+                        <i class="ph-fill ph-files text-5xl text-merge-600 dark:text-merge-500 mb-4 block mt-4"></i>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Auto Merge</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Our engine combines all PDFs into one unified document—completely automatic and instant.
+                        </p>
+                    </div>
+                    <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                        <i class="ph-bold ph-arrow-right text-3xl text-merge-500"></i>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div>
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-amber-200 dark:border-amber-800 text-center hover:shadow-xl transition-shadow">
+                        <div
+                            class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-merge-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                            3
+                        </div>
+                        <i
+                            class="ph-fill ph-download-simple text-5xl text-merge-600 dark:text-merge-500 mb-4 block mt-4"></i>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Download Combined PDF</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Instantly download your merged PDF file ready to use, share, or print.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="py-20 px-4 bg-white dark:bg-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Perfect For</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400">Trusted by professionals who need organized
+                    documents</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div
+                    class="bg-gradient-to-br from-amber-50 to-white dark:from-amber-900/10 dark:to-slate-900 p-6 rounded-xl border border-amber-100 dark:border-amber-900/30 hover:border-amber-300 dark:hover:border-amber-700 transition-colors">
+                    <i class="ph-fill ph-briefcase text-4xl text-amber-600 dark:text-amber-400 mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Business Professionals</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Combine invoices, contracts, and reports into
+                        one file</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/10 dark:to-slate-900 p-6 rounded-xl border border-blue-100 dark:border-blue-900/30 hover:border-blue-300 dark:hover:border-blue-700 transition-colors">
+                    <i class="ph-fill ph-student text-4xl text-blue-600 dark:text-blue-400 mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Students & Educators</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Merge research papers, assignments, and study
+                        notes</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-green-50 to-white dark:from-green-900/10 dark:to-slate-900 p-6 rounded-xl border border-green-100 dark:border-green-900/30 hover:border-green-300 dark:hover:border-green-700 transition-colors">
+                    <i class="ph-fill ph-scales text-4xl text-green-600 dark:text-green-400 mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Legal Teams</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Consolidate case documents and legal filings
+                    </p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/10 dark:to-slate-900 p-6 rounded-xl border border-purple-100 dark:border-purple-900/30 hover:border-purple-300 dark:hover:border-purple-700 transition-colors">
+                    <i class="ph-fill ph-file-text text-4xl text-purple-600 dark:text-purple-400 mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Project Managers</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Unite project documentation and presentations
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-4 bg-slate-50 dark:bg-slate-900">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Frequently Asked
+                    Questions</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400">Everything you need to know about merging PDFs</p>
+            </div>
+
+            <div class="space-y-4">
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">Is this PDF merger really
+                            free?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Yes, absolutely! PDFToolz is 100% free with no hidden fees, premium features, or file limits.
+                        Merge unlimited PDFs without paying anything—ever.
+                    </p>
+                </details>
+
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">How many files can I
+                            merge?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        You can merge as many PDF files as you need into one document. There's no limit on the number of
+                        files you can combine.
+                    </p>
+                </details>
+
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">Are my files safe and
+                            secure?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Absolutely. All PDF merging happens locally in your browser—your files never get uploaded to
+                        servers. This ensures complete privacy and security for sensitive documents.
+                    </p>
+                </details>
+
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">Will the merged PDF maintain
+                            quality?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Yes! The merged PDF maintains perfect quality, formatting, and page order. All text, images, and
+                        layouts remain exactly as they were in the original files.
+                    </p>
+                </details>
+
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">Can I rearrange the order of
+                            files?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Files are merged in the order you select them. Simply select your PDFs in the desired order, and
+                        they'll be combined accordingly.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-sm">© 2025 PDFToolz Inc.
+            All rights reserved.</div>
+    </footer>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const idleContent = document.getElementById('idle-content');
+        const successContent = document.getElementById('success-content');
+        const fileCountDisplay = document.getElementById('file-count');
+        const mergeBtn = document.getElementById('merge-btn');
+        const processingBtn = document.getElementById('processing-btn');
+        const downloadBtn = document.getElementById('download-btn');
+
+        let selectedFiles = [];
+
+        // Drag & Drop Visuals
+        ['dragenter', 'dragover'].forEach(eventName => { dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.add('drag-active'); }, false); });
+        ['dragleave', 'drop'].forEach(eventName => { dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.remove('drag-active'); }, false); });
+
+        // Handle File Selection
+        const handleFiles = (files) => {
+            if (files && files.length > 0) {
+                selectedFiles = Array.from(files);
+                idleContent.classList.add('hidden');
+                successContent.classList.replace('hidden', 'flex');
+                fileCountDisplay.innerText = `${selectedFiles.length} file(s) selected`;
+                fileInput.classList.add('hidden');
+            }
+        };
+
+        dropZone.addEventListener('drop', (e) => { handleFiles(e.dataTransfer.files); });
+        fileInput.addEventListener('change', (e) => { handleFiles(e.target.files); });
+
+        // Merge Logic
+        mergeBtn.addEventListener('click', async () => {
+            if (selectedFiles.length === 0) return;
+
+            mergeBtn.classList.add('hidden');
+            processingBtn.classList.remove('hidden');
+            processingBtn.classList.add('flex');
+
+            const formData = new FormData();
+            selectedFiles.forEach((file, index) => {
+                formData.append(`file${index}`, file);
+            });
+
+            try {
+                const response = await fetch('/merge-pdf', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    processingBtn.classList.add('hidden');
+                    processingBtn.classList.remove('flex');
+
+                    downloadBtn.href = data.download_url;
+                    downloadBtn.classList.remove('hidden');
+                    downloadBtn.classList.add('flex');
+                } else {
+                    throw new Error(data.error || 'Merge failed');
+                }
+
+            } catch (error) {
+                console.error(error);
+                processingBtn.classList.add('hidden');
+                processingBtn.classList.remove('flex');
+                mergeBtn.classList.remove('hidden');
+                alert("Error: " + error.message);
+            }
+        });
+
+        // Theme Logic
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); updateIcon(true); } else { document.documentElement.classList.remove('dark'); updateIcon(false); }
+        function toggleTheme() { if (document.documentElement.classList.contains('dark')) { document.documentElement.classList.remove('dark'); localStorage.theme = 'light'; updateIcon(false); } else { document.documentElement.classList.add('dark'); localStorage.theme = 'dark'; updateIcon(true); } }
+        function updateIcon(isDark) { const icon = document.getElementById('theme-icon'); if (icon) { isDark ? icon.classList.replace('ph-moon', 'ph-sun') : icon.classList.replace('ph-sun', 'ph-moon'); } }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split PDF Online Free | Free PDF Page Splitter - PDFToolz</title>
+    <meta name="description"
+        content="Instantly separate a PDF into individual pages or extract specific page ranges with precision. Free PDF page splitter is fast, 100% secure, and requires no login. Everything runs directly in your browser.">
+    <meta name="keywords"
+        content="split PDF online, free PDF page splitter, secure PDF splitting, no-login PDF tools, extract PDF pages, separate PDF">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' },
+                        split: { 50: '#faf5ff', 100: '#f3e8ff', 500: '#a855f7', 600: '#9333ea' }
+                    },
+                    animation: { 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .drag-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a855f7' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .drop-zone {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .drop-zone.drag-active {
+            border-color: #a855f7;
+            background-color: #faf5ff;
+            transform: scale(1.02);
+        }
+
+        .dark .drop-zone.drag-active {
+            background-color: #1e293b;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
+    <!-- Navigation -->
+    <nav
+        class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-10">
+                    <a href="index.html" class="flex-shrink-0 flex items-center gap-2 group">
+                        <div
+                            class="bg-brand-600 text-white p-1.5 rounded-lg group-hover:bg-brand-700 transition-colors">
+                            <i class="ph-bold ph-files text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-slate-800 dark:text-white">PDF<span
+                                class="text-brand-600 dark:text-brand-500">Toolz</span></span>
+                    </a>
+                    <div class="hidden md:flex space-x-4 items-center">
+                        <span class="text-sm font-medium text-slate-400">/</span>
+                        <span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Split PDF</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" onclick="toggleTheme()"
+                        class="p-2 rounded-full text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"><i
+                            id="theme-icon" class="ph-bold ph-moon text-xl"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Upload -->
+    <section
+        class="py-16 px-4 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-900 relative overflow-hidden">
+
+        <div class="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+            <!-- SEO Heading -->
+            <div class="space-y-4">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">Split PDF
+                    Online
+                    Free</h1>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">Instantly
+                    <strong>separate a PDF into individual pages</strong> or extract specific page ranges with
+                    precision. Fast, 100% secure, runs directly in your browser.
+                </p>
+            </div>
+
+            <!-- Upload Section -->
+            <div id="drop-zone"
+                class="drop-zone bg-white dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-3xl p-12 md:p-16 shadow-xl cursor-pointer relative overflow-hidden group">
+                <input type="file" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
+                    accept=".pdf" />
+
+                <div id="idle-content" class="relative z-10 flex flex-col items-center gap-6">
+                    <div
+                        class="w-24 h-24 bg-purple-50 dark:bg-slate-700 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-scissors text-5xl text-split-500"></i>
+                    </div>
+                    <button
+                        class="bg-brand-600 hover:bg-brand-700 text-white text-xl font-bold py-4 px-12 rounded-xl shadow-lg transition-all transform hover:-translate-y-1">Select
+                        PDF file</button>
+                    <p class="text-slate-400 dark:text-slate-500 text-sm font-medium">or drop PDF here</p>
+                </div>
+
+                <div id="success-content" class="hidden relative z-30 flex-col items-center gap-4 pointer-events-auto">
+                    <div
+                        class="w-20 h-20 bg-purple-50 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-2">
+                        <i class="ph-bold ph-file-pdf text-4xl text-split-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-white">File Ready to Split</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm font-medium bg-slate-100 dark:bg-slate-700 px-4 py-2 rounded-lg"
+                        id="file-name"></p>
+
+                    <div
+                        class="mt-4 p-4 bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 w-full max-w-md">
+                        <div class="flex flex-col gap-4">
+                            <label class="flex items-center gap-3 cursor-pointer relative z-50">
+                                <input type="radio" name="split-mode" value="all" checked
+                                    class="w-5 h-5 text-brand-600 focus:ring-brand-500"
+                                    onchange="toggleRangeInputs(false)">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Extract All
+                                    Pages</span>
+                            </label>
+
+                            <label class="flex items-center gap-3 cursor-pointer relative z-50">
+                                <input type="radio" name="split-mode" value="range"
+                                    class="w-5 h-5 text-brand-600 focus:ring-brand-500"
+                                    onchange="toggleRangeInputs(true)">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Select
+                                    Range</span>
+                            </label>
+
+                            <div id="range-inputs"
+                                class="hidden flex items-center gap-4 pl-8 transition-all duration-300 relative z-50">
+                                <div class="flex flex-col">
+                                    <label class="text-xs text-slate-500 dark:text-slate-400 mb-1">From Page</label>
+                                    <input type="number" id="start-page" min="1"
+                                        class="w-24 p-2 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white text-center focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition-all"
+                                        placeholder="1">
+                                </div>
+                                <span class="text-slate-400 font-bold pt-4">-</span>
+                                <div class="flex flex-col">
+                                    <label class="text-xs text-slate-500 dark:text-slate-400 mb-1">To Page</label>
+                                    <input type="number" id="end-page" min="1"
+                                        class="w-24 p-2 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white text-center focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition-all"
+                                        placeholder="End">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="split-btn"
+                        class="mt-6 bg-brand-600 hover:bg-brand-700 text-white text-lg font-bold py-3 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center gap-2 cursor-pointer relative z-50">
+                        <span>Split PDF Now</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </button>
+
+                    <button id="processing-btn"
+                        class="hidden mt-6 bg-slate-400 cursor-not-allowed text-white text-lg font-bold py-3 px-8 rounded-xl flex items-center gap-3">
+                        <i class="ph-bold ph-spinner spinner text-xl"></i>
+                        <span>Splitting...</span>
+                    </button>
+
+                    <a id="download-btn" href="#"
+                        class="hidden mt-6 bg-green-600 hover:bg-green-700 text-white text-lg font-bold py-3 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center gap-2 relative z-50">
+                        <i class="ph-bold ph-download-simple text-xl"></i>
+                        <span>Download ZIP File</span>
+                    </a>
+
+                    <button onclick="location.reload()"
+                        class="mt-2 text-brand-600 dark:text-brand-400 font-medium hover:text-brand-800 dark:hover:text-brand-300 underline text-sm cursor-pointer relative z-50">Change
+                        file</button>
+                </div>
+                <div
+                    class="absolute inset-0 drag-pattern opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                </div>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="mt-10 flex flex-wrap justify-center gap-8 md:gap-12">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-scissors text-2xl text-split-500"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-sm font-semibold text-slate-900 dark:text-white">Precise Extraction</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Any Page or Range</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-shield-check text-2xl text-blue-600"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-sm font-semibold text-slate-900 dark:text-white">Secure Splitting</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Files Never Uploaded</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
+                        <i class="ph-fill ph-lightning text-2xl text-yellow-600"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-sm font-semibold text-slate-900 dark:text-white">Instant Processing</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Split in Seconds</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose PDFToolz Section -->
+    <section class="py-20 px-4 bg-white dark:bg-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <span
+                    class="inline-block px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-semibold mb-4">Why
+                    Choose PDFToolz</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
+                    The Best Free PDF Page Splitter Online
+                </h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                    Instantly <strong>separate PDFs into individual pages</strong> or extract specific sections with
+                    pinpoint accuracy
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-scissors text-3xl text-split-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Accurate Page Extraction</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Our <strong>split PDF online</strong> tool extracts pages with exceptional precision. Choose all
+                        pages or specific ranges—every page maintains perfect quality and formatting.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-lightning text-3xl text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Lightning-Fast Splitting</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Get your <strong>separated PDF pages instantly</strong>. Our optimized engine splits PDFs in
+                        seconds—select pages, split, and download immediately.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-shield-check text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Complete Privacy & Security</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Your files never leave your device. All <strong>secure PDF splitting</strong> happens locally in
+                        your browser with zero uploads. Enjoy complete confidentiality.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-user-circle-slash text-3xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">No Login, 100% Free</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Access our professional <strong>free PDF page splitter</strong> instantly with <strong>no
+                            registration required</strong>. Split unlimited PDFs at absolutely no cost—forever.
+                    </p>
+                </div>
+
+                <!-- Card 5 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-devices text-3xl text-teal-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Works Everywhere</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Perfect on <strong>Windows, Mac, Linux, iOS, and Android</strong>. Our browser-based tool works
+                        seamlessly across all platforms.
+                    </p>
+                </div>
+
+                <!-- Card 6 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-file-arrow-down text-3xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Flexible Output</h3>
+                    <p class="text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                        Get individual PDF files for each extracted page, conveniently packaged in a ZIP file for easy
+                        download and organization.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-20 px-4 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">How Our PDF Splitter
+                    Works</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    Extract PDF pages in three simple steps—perfect for documents, reports, and presentations
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-purple-200 dark:border-purple-800 text-center hover:shadow-xl transition-shadow">
+                        <div
+                            class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-split-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                            1
+                        </div>
+                        <i
+                            class="ph-fill ph-upload-simple text-5xl text-split-600 dark:text-split-500 mb-4 block mt-4"></i>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Upload Your PDF</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Click to select or drag and drop your PDF file. All file sizes supported for splitting.
+                        </p>
+                    </div>
+                    <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                        <i class="ph-bold ph-arrow-right text-3xl text-split-500"></i>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-purple-200 dark:border-purple-800 text-center hover:shadow-xl transition-shadow">
+                        <div
+                            class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-split-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                            2
+                        </div>
+                        <i class="ph-fill ph-scissors text-5xl text-split-600 dark:text-split-500 mb-4 block mt-4"></i>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Select Pages</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Choose to extract all pages or select specific page ranges—completely flexible and precise.
+                        </p>
+                    </div>
+                    <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                        <i class="ph-bold ph-arrow-right text-3xl text-split-500"></i>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div>
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-purple-200 dark:border-purple-800 text-center hover:shadow-xl transition-shadow">
+                        <div
+                            class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-split-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                            3
+                        </div>
+                        <i
+                            class="ph-fill ph-download-simple text-5xl text-split-600 dark:text-split-500 mb-4 block mt-4"></i>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Download Pages</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Instantly download your separated PDF files packaged in a convenient ZIP archive.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="py-20 px-4 bg-white dark:bg-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Perfect For</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400">Trusted by professionals who need precise document
+                    control</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div
+                    class="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/10 dark:to-slate-900 p-6 rounded-xl border border-purple-100 dark:border-purple-900/30 hover:border-purple-300 dark:hover:border-purple-700 transition-colors">
+                    <i class="ph-fill ph-briefcase text-4xl text-purple-600 dark:text-purple-400 mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Business Professionals</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Extract specific pages from contracts,
+                        reports,
+                        and proposals</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/10 dark:to-slate-900 p-6 rounded-xl border border-blue-100 dark:border-blue-900/30 hover:border-blue-300 dark:hover:border-blue-700 transition-colors">
+                    <i class="ph-fill ph-student text-4xl text-blue-600 dark:text-blue-400 mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Students & Educators</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Separate textbook chapters and study materials
+                        easily</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-green-50 to-white dark:from-green-900/10 dark:to-slate-900 p-6 rounded-xl border border-green-100 dark:border-green-900/30 hover:border-green-300 dark:hover:border-green-700 transition-colors">
+                    <i class="ph-fill ph-scales text-4xl text-green-600 dark:text-green-400 mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Legal Teams</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Extract evidence pages and specific document
+                        sections</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-orange-50 to-white dark:from-orange-900/10 dark:to-slate-900 p-6 rounded-xl border border-orange-100 dark:border-orange-900/30 hover:border-orange-300 dark:hover:border-orange-700 transition-colors">
+                    <i class="ph-fill ph-file-text text-4xl text-orange-600 dark:text-orange-400 mb-4 block"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Document Managers</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Organize and distribute specific pages from
+                        large files</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-4 bg-slate-50 dark:bg-slate-900">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Frequently Asked
+                    Questions</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400">Everything you need to know about splitting PDFs
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">Is this PDF splitter really
+                            free?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Yes, absolutely! PDFToolz is 100% free with no hidden fees, premium features, or page limits.
+                        Split unlimited PDFs without paying anything—ever.
+                    </p>
+                </details>
+
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">How accurate is the page
+                            extraction?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Our tool extracts pages with precision. Each extracted page maintains perfect quality,
+                        formatting,
+                        fonts, images, and layout—identical to the original PDF.
+                    </p>
+                </details>
+
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">Are my files safe and
+                            secure?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Absolutely. All PDF splitting happens locally in your browser—your files never get uploaded to
+                        servers. This ensures complete privacy and security for sensitive documents.
+                    </p>
+                </details>
+
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">Can I select specific
+                            pages?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Yes! You can extract all pages or specify a custom page range (e.g., pages 5-15). This gives you
+                        complete control over which pages to extract.
+                    </p>
+                </details>
+
+                <details
+                    class="group bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all">
+                    <summary class="flex justify-between items-center cursor-pointer list-none">
+                        <span class="text-lg font-bold text-slate-900 dark:text-white">How do I get the split
+                            files?</span>
+                        <i
+                            class="ph-bold ph-caret-down text-2xl text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        After splitting, all extracted pages are packaged into a convenient ZIP file for easy download.
+                        Simply extract the ZIP to access your individual PDF files.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-sm">© 2025 PDFToolz Inc.
+            All rights reserved.</div>
+    </footer>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const idleContent = document.getElementById('idle-content');
+        const successContent = document.getElementById('success-content');
+        const fileNameDisplay = document.getElementById('file-name');
+        const rangeInputsDiv = document.getElementById('range-inputs');
+        const startPageInput = document.getElementById('start-page');
+        const endPageInput = document.getElementById('end-page');
+        const splitBtn = document.getElementById('split-btn');
+        const processingBtn = document.getElementById('processing-btn');
+        const downloadBtn = document.getElementById('download-btn');
+
+        let selectedFile = null;
+
+        function toggleRangeInputs(show) {
+            if (show) {
+                rangeInputsDiv.classList.remove('hidden');
+                rangeInputsDiv.classList.add('flex');
+            } else {
+                rangeInputsDiv.classList.add('hidden');
+                rangeInputsDiv.classList.remove('flex');
+                startPageInput.value = '';
+                endPageInput.value = '';
+            }
+        }
+
+        // Drag & Drop Visuals
+        ['dragenter', 'dragover'].forEach(eventName => { dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.add('drag-active'); }, false); });
+        ['dragleave', 'drop'].forEach(eventName => { dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.remove('drag-active'); }, false); });
+
+        // Handle File Selection
+        const handleFile = (file) => {
+            if (file) {
+                selectedFile = file;
+                idleContent.classList.add('hidden');
+                successContent.classList.replace('hidden', 'flex');
+                fileNameDisplay.innerText = file.name;
+                fileInput.classList.add('hidden');
+            }
+        };
+
+        dropZone.addEventListener('drop', (e) => { handleFile(e.dataTransfer.files[0]); });
+        fileInput.addEventListener('change', (e) => { handleFile(e.target.files[0]); });
+
+        // Split Logic
+        splitBtn.addEventListener('click', async () => {
+            if (!selectedFile) return;
+
+            splitBtn.classList.add('hidden');
+            processingBtn.classList.remove('hidden');
+            processingBtn.classList.add('flex');
+
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            const isRangeMode = document.querySelector('input[name="split-mode"]:checked').value === 'range';
+            if (isRangeMode) {
+                if (startPageInput.value) formData.append('start_page', startPageInput.value);
+                if (endPageInput.value) formData.append('end_page', endPageInput.value);
+            }
+
+            try {
+                const response = await fetch('/split-pdf', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    processingBtn.classList.add('hidden');
+                    processingBtn.classList.remove('flex');
+
+                    downloadBtn.href = data.download_url;
+                    downloadBtn.classList.remove('hidden');
+                    downloadBtn.classList.add('flex');
+                } else {
+                    throw new Error(data.error || 'Split failed');
+                }
+
+            } catch (error) {
+                console.error(error);
+                processingBtn.classList.add('hidden');
+                processingBtn.classList.remove('flex');
+                splitBtn.classList.remove('hidden');
+                alert("Error: " + error.message);
+            }
+        });
+
+        // Theme Logic
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); updateIcon(true); } else { document.documentElement.classList.remove('dark'); updateIcon(false); }
+        function toggleTheme() { if (document.documentElement.classList.contains('dark')) { document.documentElement.classList.remove('dark'); localStorage.theme = 'light'; updateIcon(false); } else { document.documentElement.classList.add('dark'); localStorage.theme = 'dark'; updateIcon(true); } }
+        function updateIcon(isDark) { const icon = document.getElementById('theme-icon'); if (icon) { isDark ? icon.classList.replace('ph-moon', 'ph-sun') : icon.classList.replace('ph-sun', 'ph-moon'); } }
+    </script>
+</body>
+
+</html>
